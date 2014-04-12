@@ -6,7 +6,8 @@ var app = angular.module('projectApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'firebase'
+  'firebase',
+  'vr.directives.slider'
 ])
   .config(function ($routeProvider) {
     $routeProvider

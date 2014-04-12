@@ -1,12 +1,27 @@
-var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $firebase,$q, $timeout, ModelService) {
+var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $firebase, ModelService) {
 	ModelService.init('https://hranalytics.firebaseio.com/models');
   	$scope.model = ModelService.getById($routeParams.id);
   	$scope.maxWeightValidation = /^[1-5]$/;
   	$scope.selectedCandidateId;
-  	$scope.selectedCandidate;
-  	
+  	$scope.selectedCandidate;  	
   	$scope.salaryChart = {};
   	$scope.salaryChart.dataTable = new google.visualization.DataTable();
+
+  	/**************/
+  	$scope.scopes = [];
+    $scope.value = 5;
+    $scope.values = {
+	    low : 4,
+	    high: 7
+    };
+    $scope.scale = function(value) {
+	    return Math.pow(value, 3);
+    };
+    $scope.inverseScale = function(value) {
+	    var sign = value == 0?1:(value / Math.abs(value));
+	    return sign * Math.pow(Math.abs(value), 1 / 3);
+    };
+  	/**************/
 
 	$scope.candidateEditor = function(candidate, id){
 		$scope.selectedCandidateId = id;
@@ -76,6 +91,7 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		angular.forEach($scope.model.candidates, function(candidate, key){
 			data.dataTable.addRow([candidate.name,parseInt($scope.model.candidates[key].skills[index].score)]);
 		});
+		data.dataTable.sort([{column:1, desc:true}]);
 		$scope['skillChart' + index] = data;
 		return $scope['skillChart' + index];
 	}
@@ -89,6 +105,7 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		angular.forEach($scope.model.candidates, function(candidate, key){
 			totalScoreChart.dataTable.addRow([candidate.name,candidate.totalScore]);		
 		});
+		totalScoreChart.dataTable.sort([{column:1, desc:true}]);
 		$scope.totalScoreChart = totalScoreChart;
 		return $scope.totalScoreChart;
 	}
@@ -117,7 +134,7 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		var salaryChart = {};
 		salaryChart.dataTable = new google.visualization.DataTable();
 		salaryChart.dataTable.addColumn("string","Candidate");
-		salaryChart.dataTable.addColumn("number","Salary");
+		salaryChart.dataTable.addColumn("number","Investment");
 		salaryChart.dataTable.addColumn("number","Score");
 		salaryChart.dataTable.zf = [];//clear rows
 		angular.forEach($scope.model.candidates, function(candidate, key){
@@ -130,42 +147,19 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		$scope.salaryChart = salaryChart;
 		return $scope.salaryChart;
 	}
-	 	
-
-	//*******************sample data*********************
-	//$scope.populateChart = function(){
-		// $scope.data1 = {};
-		// $scope.data1.dataTable = new google.visualization.DataTable();
-		// $scope.data1.dataTable.addColumn("string","Name");
-		// $scope.data1.dataTable.addColumn("number",".Net");
-		// $scope.data1.dataTable.addColumn("number","SQL");
-		//debugger;
-		//$scope.data1.dataTable.addRow(["Test",$scope.model.candidates['-JJtEc3cYqcw1L7Bi6bu'].skills[0].score]);
-		// angular.forEach($scope.model.candidates, function(candidate, key){
-		// 	debugger;
-		// 	$scope.data1.dataTable.addRow([candidate.name,parseInt($scope.model.candidates[key].skills[index].score)]);
-		// });
-		// $scope.data1.dataTable.addRow(["Test1",4,5]);
-		// $scope.data1.dataTable.addRow(["Test2",2,4]);
-		// $scope.data1.dataTable.addRow(["Test3",3,5]);    
-		// $scope.data1.options = {};
-		// $scope.data1.options.title="My Pie title";
-		// $scope.data1.options.width=500;
-		// $scope.data1.options.height=320;
-	//}
-	//*******************sample data*********************
 };
 
 var editCandidateCtrl = function ($scope, $modalInstance, candidate, model, ModelService) {
   $scope.candidate = candidate;
   $scope.isNew = false;
-  if(!candidate){//if it is new candidate
+  debugger;
+  if(!candidate.name){//if it is new candidate
   	$scope.isNew = true;
-	$scope.candidate = {};
-	$scope.candidate.skills = [];  	
-  	$scope.candidate.salary = 0;
-  	$scope.candidate.name = "";  	
-  	$scope.candidate.skills = [];  	
+	$scope.candidate = {
+		skills:[],
+	  	salary:0,
+	  	name:""
+	};
 	for (var i = 0; i < model.criterias.length; i++) {
 		 $scope.candidate.skills.push({"name":model.criterias[i].name,"score":""});
 	};
@@ -191,7 +185,7 @@ var editCandidateCtrl = function ($scope, $modalInstance, candidate, model, Mode
 
   $scope.removeCriteria = function (criteria) {
     for (var i = $scope.candidate.skills.length - 1; i >= 0; i--) {
-          if($scope.candidate.skills[i].name == criteria.name && $scope.candidate.skills[i].weight == skill.weight){
+          if($scope.candidate.skills[i].name == criteria.name && $scope.candidate.skills[i].weight == skill.weight) {
             $scope.candidate.skills.splice(i, 1);
           }
     };
