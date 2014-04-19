@@ -28,7 +28,7 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		$scope.selectedCandidate = candidate ? candidate : {}
 		$scope.isNew = id ? false : true;
 		var modalInstance = $modal.open({
-	      templateUrl: '../views/CandidateManager.html',
+	      templateUrl: 'views/CandidateManager.html',
 	      controller: editCandidateCtrl,
 	      resolve: {
 	        candidate: function () {

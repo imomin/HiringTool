@@ -41,14 +41,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">HR Analytics</a>
+          <a class="navbar-brand" href="#">Data Matrix</a>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-          </ul>
+        <div class="navbar-collapse collapse" ng-controller="LoginController">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="./">Sign out</a></li>
+            <li ng-show="isAuthenticated"><a href="./" ng-click="logout();">Sign Out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -94,9 +91,15 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->        
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/ModelCrtl.js"></script> 
-        <script src="scripts/controllers/modelDetailsCtrl.js"></script> 
-        <script src="scripts/services/service.js"></script>
+        <script src="scripts/controllers/userCtrl.js"></script> 
+        <script src="scripts/controllers/modelCtrl.js"></script>
+        <script src="scripts/controllers/modelDetailsCtrl.js"></script>
+        <script src="scripts/controllers/LoginCtrl.js"></script>
+        <script src="scripts/services/SessionService.js"></script>
+        <script src="scripts/services/BaseService.js"></script>
+        <script src="scripts/services/ModelService.js"></script>
+        <script src="scripts/services/UserService.js"></script>
+        <script src="scripts/services/AuthService.js"></script> 
         <script src="scripts/directives/chart.js"></script> 
         <!-- endbuild -->
         <!-- https://hranalytics.firebaseio.com/ -->

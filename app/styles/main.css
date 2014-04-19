@@ -78,6 +78,6 @@ body {
   }
 }
 
-input.ng-invalid, input.ng-invalid-pattern {
-  background-color: red;
+input.ng-invalid.ng-dirty, input.ng-invalid-pattern.ng-dirty {
+  border-color: red;
 }

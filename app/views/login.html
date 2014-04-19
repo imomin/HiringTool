@@ -1,0 +1,42 @@
+<form class="form-horizontal" role="form" ng-controller="LoginController">
+  
+  <div>
+    <alert ng-show="invalidCredential" type="danger" close="invalidCredential=false">Invalid Username or Password.</alert>
+    <alert ng-show="resetPasswordError" type="danger" close="resetPasswordError=false">Email address not found.</alert>
+    <alert ng-show="resetPasswordSuccess" type="success" close="resetPasswordSuccess=false">Reset password sent to your email.</alert>
+  </div>
+
+  <h2 class="form-signin-heading">Please sign in</h2>    
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-xs-4">
+      <input type="email" class="form-control" id="inputEmail" placeholder="Email address" required autofocus ng-model="credentials.email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+    <div class="col-xs-4">
+      <input type="password" class="form-control" id="inputPassword" required ng-model="credentials.password" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="credentials.rememberMe"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-xs-4">
+      <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login();">Sign in</button>      
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-xs-4">
+      <button type="button" class="btn btn-link" ng-click="register();">Sign up</button>
+      <button type="button" class="btn btn-link" ng-click="resetPassword();">Reset and Email Password</button>
+    </div>
+  </div>
+</form>

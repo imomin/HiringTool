@@ -1,4 +1,4 @@
-app.factory('ModelService', function($firebase) {
+app.factory('BaseService', function($firebase) {
 	var _url = null;
 	var _ref = null;
 
@@ -29,6 +29,9 @@ app.factory('ModelService', function($firebase) {
 		},
 		deleteAll: function(){
     		_ref.remove();
+		},
+		getRef: function(){
+			return _ref;
 		}	
 	};
 });

@@ -13,13 +13,34 @@ var app = angular.module('projectApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/modelList.html',
-        controller: 'modelListCtrl'
+        controller: 'modelListCtrl',
+        requireLogin: true
       })
       .when('/details/:id?', {
         templateUrl: 'views/ModelDetails.html',
-        controller: 'modelDetailsCtrl'
+        controller: 'modelDetailsCtrl',
+        requireLogin: true
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'userCtrl',
+        requireLogin: false
+      })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'userCtrl',
+        requireLogin: false
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/',
+        requireLogin: true
       });
-  });
+  })
+  .run(function ($rootScope, $location,$cookieStore, SessionService) {    
+    $rootScope.$on('$routeChangeStart', function (event, currRoute, prevRoute) {
+      if (currRoute.$$route.requireLogin && !SessionService.isUserAuthenticated()) {      
+          event.preventDefault();    
+          $location.path('/login');
+        }
+    });
+});

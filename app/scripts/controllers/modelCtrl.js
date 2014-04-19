@@ -1,18 +1,16 @@
-app.controller("modelListCtrl", function($scope, $modal, $location, $firebase, ModelService) {
-  ModelService.init('https://hranalytics.firebaseio.com/models');
+app.controller("modelListCtrl", function($scope, $modal, $location, $firebase, ModelService) {  
   $scope.models = ModelService.getAll();
   $scope.newItem = {};
   $scope.model = {};
   $scope.originalModel = {};
   $scope.isNew = false;
   $scope.maxWeightValidation = /^[1-5]$/;
-
   $scope.open = function (id) {
     $scope.model = id ? $scope.models[id] : {};
     $scope.originalModel = angular.extend($scope.originalModel, $scope.model);
     $scope.isNew = id ? false : true;
     var modalInstance = $modal.open({
-      templateUrl: '../views/model.html',
+      templateUrl: 'views/model.html',
       controller: 'editModelCtrl',
       resolve: {
         model: function () {
