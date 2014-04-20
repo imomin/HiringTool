@@ -15,11 +15,10 @@ app.controller("LoginController", function($scope, $rootScope, $cookieStore,$loc
         $scope.isAuthenticated = true;
         $scope.invalidCredential = false;
         $location.path('/').replace();
-        $scope.$apply();
+        //$scope.$apply();
     });
     
     $rootScope.$on("resetPassword", function(event,error){
-        debugger;
         if (error) {
             $scope.$apply(function(){
                 $scope.resetPasswordError = true;
@@ -66,13 +65,3 @@ app.controller("LoginController", function($scope, $rootScope, $cookieStore,$loc
         }
     }
 });
-
-app.controller('MenuController',function($scope,$location, $rootScope, AuthService, SessionService){
-    debugger;
-    $scope.isAuthenticated = SessionService.isUserAuthenticated();
-    $scope.userName = SessionService.isUserAuthenticated();
-
-    $scope.logout = function(){
-        AuthService.logout();
-    }
-})

@@ -1,4 +1,4 @@
-app.controller("userCtrl", function($scope, $location, $firebase, UserService, AuthService, SessionService) {
+app.controller("userCtrl", function($scope, $location, $firebase, AuthService, SessionService) {
 	$scope.user = {};
 	$scope.add = function () {
 		AuthService.createUser($scope.user);

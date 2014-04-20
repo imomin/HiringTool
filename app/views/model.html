@@ -22,7 +22,7 @@
           <div ng-repeat="criteria in model.criterias">
             <div class="form-group">
               <div class="col-xs-7">
-                <input type="input" class="form-control" placeholder="Skill" value="{{criteria.name}}">
+                <div class="pull-right">{{criteria.name}}</div>
               </div>
               <div class="col-xs-3">
                 <input type="input" class="form-control" placeholder="Weight" required ng-pattern="maxWeightValidation" value="{{criteria.weight}}">

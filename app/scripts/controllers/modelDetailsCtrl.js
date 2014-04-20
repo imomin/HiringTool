@@ -1,5 +1,5 @@
 var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $firebase, ModelService) {
-	ModelService.init('https://hranalytics.firebaseio.com/models');
+	//ModelService.init('https://hranalytics.firebaseio.com/models');
   	$scope.model = ModelService.getById($routeParams.id);
   	$scope.maxWeightValidation = /^[1-5]$/;
   	$scope.selectedCandidateId;
@@ -36,18 +36,23 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 	        },
 	        model: function () {
 	          return $scope.model;
+	        },
+	        candidateId: function () {
+	          return $scope.selectedCandidateId;
 	        }
 	      }
 	    });
 	    modalInstance.result.then(function (selectedCandidate) {
 			if($scope.isNew){
-				ModelService.init('https://hranalytics.firebaseio.com/models/'+ $scope.model.$id + '/candidates');
-				ModelService.add(selectedCandidate);
+				//ModelService.init('https://hranalytics.firebaseio.com/models/'+ $scope.model.$id + '/candidates');
+				//ModelService.add(selectedCandidate);
+				ModelService.addCandidate($scope.model.$id,selectedCandidate);
 			}
 	      else {
 	      	$scope.model.candidates[$scope.selectedCandidateId] = selectedCandidate;
-	        ModelService.init('https://hranalytics.firebaseio.com/models/'+ $scope.model.$id + '/candidates/');
-			ModelService.update(selectedCandidate,$scope.selectedCandidateId);
+	        //ModelService.init('https://hranalytics.firebaseio.com/models/'+ $scope.model.$id + '/candidates/');
+			//ModelService.update(selectedCandidate,$scope.selectedCandidateId);
+			ModelService.updateCandidate($scope.model.$id,$scope.selectedCandidateId,selectedCandidate);
 	      }
 	    });
 	}
@@ -134,7 +139,7 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		var salaryChart = {};
 		salaryChart.dataTable = new google.visualization.DataTable();
 		salaryChart.dataTable.addColumn("string","Candidate");
-		salaryChart.dataTable.addColumn("number","Investment");
+		salaryChart.dataTable.addColumn("number","Salary");
 		salaryChart.dataTable.addColumn("number","Score");
 		salaryChart.dataTable.zf = [];//clear rows
 		angular.forEach($scope.model.candidates, function(candidate, key){
@@ -147,12 +152,15 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		$scope.salaryChart = salaryChart;
 		return $scope.salaryChart;
 	}
+
+	$scope.back = function(){
+		$location.path('/').replace();
+    }
 };
 
-var editCandidateCtrl = function ($scope, $modalInstance, candidate, model, ModelService) {
+var editCandidateCtrl = function ($scope, $modalInstance, candidate, model, candidateId, ModelService) {
   $scope.candidate = candidate;
   $scope.isNew = false;
-  debugger;
   if(!candidate.name){//if it is new candidate
   	$scope.isNew = true;
 	$scope.candidate = {
@@ -165,6 +173,7 @@ var editCandidateCtrl = function ($scope, $modalInstance, candidate, model, Mode
 	};
   }
 
+
   $scope.ok = function (candidateForm) {
   	if(candidateForm.$valid){
     	$modalInstance.close($scope.candidate);
@@ -173,6 +182,11 @@ var editCandidateCtrl = function ($scope, $modalInstance, candidate, model, Mode
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
+  };
+
+  $scope.delete = function () {
+  	ModelService.deleteCandidate(model.$id,candidateId);
+	$modalInstance.dismiss('cancel');
   };
 
   $scope.addCriteria = function (candidateForm,candidate) {    

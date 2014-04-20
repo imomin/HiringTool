@@ -4,34 +4,34 @@ app.factory('BaseService', function($firebase) {
 
 	return {
 		init: function (url) {
-            _url = url;
-            _ref = new Firebase(_url);
+			this._url = url;
+            this._ref = new Firebase(this._url);
         },
 		getAll: function() {
-			return $firebase(_ref);
+			return $firebase(this._ref);
 		},
 		getById: function(id) {
-			return $firebase(new Firebase(_url + '/' + id));
+			return $firebase(new Firebase(this._url + '/' + id));
 		},
 		add: function(item){
 			//clean object and remove angular $$hash property
 			var toJson = angular.copy(item);
-    		_ref.push(toJson);
+    		this._ref.push(toJson);
 		},
 		update: function(item,id){
-			var itemRef = new Firebase(_url + '/' + id);
+			var itemRef = new Firebase(this._url + '/' + id);
 			var toJson = angular.copy(item);
 			itemRef.update(toJson);
 		},
 		delete: function(id){
-    		var itemRef = new Firebase(_url + '/' + id);
+    		var itemRef = new Firebase(this._url + '/' + id);
     		itemRef.remove();
 		},
 		deleteAll: function(){
-    		_ref.remove();
+    		this._ref.remove();
 		},
 		getRef: function(){
-			return _ref;
-		}	
+			return this._ref;
+		}
 	};
 });
