@@ -105,7 +105,7 @@ var modelDetailsCtrl = function($scope, $modal, $location, $routeParams, $fireba
 		var totalScoreChart = {};
 		totalScoreChart.dataTable = new google.visualization.DataTable();
 		totalScoreChart.dataTable.addColumn("string","Candidate");
-		totalScoreChart.dataTable.addColumn("number","Total Score");
+		totalScoreChart.dataTable.addColumn("number","Score");
 		totalScoreChart.dataTable.zf = [];//clear rows
 		angular.forEach($scope.model.candidates, function(candidate, key){
 			totalScoreChart.dataTable.addRow([candidate.name,candidate.totalScore]);		

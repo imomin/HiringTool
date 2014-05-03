@@ -39,7 +39,7 @@
         			<th ng-repeat="criteria in model.criterias">
         				<span class="class="hideOverflow"" tooltip-placement="top" tooltip="{{criteria.name}} ({{criteria.weight}})">{{criteria.name}}</span>
         			</th>
-        			<th orderBy>Total</th>
+        			<th orderBy>Talent Score</th>
         		</tr>
             </thead>
             <tr ng-repeat="(id,candidate) in model.candidates">
@@ -71,11 +71,16 @@
     </div>
     <hr>
       
-    <div google-chart="BarChart" load-data="getTotalScoreChart()" ng-model="model.candidates" title="Total Scores" width="100%" height="320"></div>
+    <div google-chart="BarChart" load-data="getTotalScoreChart()" ng-model="model.candidates" title="Talent Score" width="100%" height="320"></div>
 
-    <div google-chart="BarChart" load-data="getSkillsSummartChart()" ng-model="model.candidates" title="Criteria Summery" width="100%" height="500"></div>    
+    <div google-chart="BarChart" load-data="getSkillsSummartChart()" ng-model="model.candidates" title="Candidate Skills Summery" width="100%" height="500"></div>    
     
-    <div google-chart="ComboChart" load-data="getSalaryChart()" ng-model="model.candidates" title="Salary" width="100%" height="500"></div>
+    <div google-chart="ComboChart" load-data="getSalaryChart()" ng-model="model.candidates" title="Talent score vs Compensiation" width="100%" height="500"></div>
+
+    <div>
+      <h3>Candidate Skill Ranking</h3>
+    </div>
+    <hr>
 
     <div style="float:left" ng-repeat="skill in model.criterias">
         <div style="float:left" google-chart="PieChart" load-data="getChartData($index)" ng-model="model.candidates" title="{{skill.name}}" width="500" height="450"></div>

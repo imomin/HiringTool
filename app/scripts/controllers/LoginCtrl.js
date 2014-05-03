@@ -6,7 +6,7 @@ app.controller("LoginController", function($scope, $rootScope, $cookieStore,$loc
     $scope.resetPasswordSuccess = false;
     
     $scope.login = function(){
-        AuthService.login($scope.credentials);
+        AuthService.login($scope.credentials);        
     }
 
     $rootScope.$on("login", function(event, user) {
@@ -15,7 +15,7 @@ app.controller("LoginController", function($scope, $rootScope, $cookieStore,$loc
         $scope.isAuthenticated = true;
         $scope.invalidCredential = false;
         $location.path('/').replace();
-        //$scope.$apply();
+        $scope.$apply();
     });
     
     $rootScope.$on("resetPassword", function(event,error){
