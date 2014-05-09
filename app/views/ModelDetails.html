@@ -8,15 +8,15 @@
     </h2>	
   </div> 
   <div class="row">
-  	<h3>Job Criterias</h3>
+  	<h3>Key Selection Criteria<div class="pull-right">Weight</div></h3>
   	<!-- <hr> -->
   	<div class="form-horizontal">
 		<table class="table">
 		  <tr ng-repeat="criteria in model.criterias">
 		  	<td>{{$index+1}}) {{criteria.name}}</td>
 		  	<td>
-		  		<div class="col-xs-2 pull-right">          
-           <slider floor='1' ceiling='5' step='1' precision='0' stickiness='3'
+		  		<div class="pull-right">          
+           <slider floor='0' ceiling='5' step='1' precision='0' stickiness='3'
               ng-model='criteria.weight' style="width:150px;"></slider>        
 		  		<!-- <input type="input" class="form-control input-sm" required ng-pattern="maxWeightValidation" placeholder="Weight" tooltip-placement="right" tooltip='On the scale of 1 to 5 how important is this skill?' ng-model="criteria.weight" value="{{criteria.weight}}"> -->
 		  		</div>
@@ -28,7 +28,7 @@
 	
   <div class="row">
   	<div>
-  		<h3>Candidates <button class="btn btn-primary pull-right pull-right"  ng-click="candidateEditor()">Add</button></h3>
+  		<h3>Candidate Scores <button class="btn btn-primary pull-right pull-right"  ng-click="candidateEditor()">Add</button></h3>
   	</div>
   	<hr>
   	<div><!--  -->
@@ -78,12 +78,12 @@
     <div google-chart="ComboChart" load-data="getSalaryChart()" ng-model="model.candidates" title="Talent score vs Compensiation" width="100%" height="500"></div>
 
     <div>
-      <h3>Candidate Skill Ranking</h3>
+      <h3>Candidate ranking by criteria</h3>
     </div>
     <hr>
 
     <div style="float:left" ng-repeat="skill in model.criterias">
-        <div style="float:left" google-chart="PieChart" load-data="getChartData($index)" ng-model="model.candidates" title="{{skill.name}}" width="500" height="450"></div>
+        <div style="float:left" google-chart="BarChart" load-data="getChartData($index)" ng-model="model.candidates" title="{{skill.name}}" width="500" height="450"></div>
     </div>
   </div>    
 </div>
