@@ -2,7 +2,8 @@
   "name": "HiringTool",
   "version": "0.0.0",
   "dependencies": {
-    "express": "~4.0.0"
+    "express": "~4.0.0",
+    "firebase-tools": "^1.0.6"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -10,7 +10,7 @@ app.factory('SessionService', function($rootScope,$cookieStore) {
 		return $cookieStore.get('isAuthenticated') ? $cookieStore.get('isAuthenticated') :false;
 	},
 	this.setAuthenticatedUser = function(user){
-		user ? $cookieStore.put('user',true) : $cookieStore.remove('user');
+		user ? $cookieStore.put('user',user.md5_hash) : $cookieStore.remove('user');
 	},
 	this.getAuthenticatedUser = function(){
 		return $cookieStore.get('user') ? $cookieStore.get('user') :null;;

@@ -11,6 +11,7 @@ app.controller("LoginController", function($scope, $rootScope, $cookieStore,$loc
 
     $rootScope.$on("login", function(event, user) {
         SessionService.setUserAuthenticated(true);
+        debugger;
         SessionService.setAuthenticatedUser(user);
         $scope.isAuthenticated = true;
         $scope.invalidCredential = false;

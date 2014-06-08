@@ -18,6 +18,7 @@ app.factory('AuthService', function($rootScope, $location, $q, UserService, Sess
             }
             if (!error) {
                 userObj.id = user.id;
+                userObj.uid = user.md5_hash;
                 temp = userObj.password
                 userObj.password = null;
                 UserService.add(userObj);
@@ -61,5 +62,6 @@ app.factory('AuthService', function($rootScope, $location, $q, UserService, Sess
     this.logout = function(){
         this.auth.logout();
     }
+    
     return this;
 });

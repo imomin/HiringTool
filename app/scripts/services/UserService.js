@@ -14,8 +14,10 @@ app.factory('UserService', function($firebase,BaseService) {
 		},
 		add: function(item){
 			//clean object and remove angular $$hash property
-			var toJson = angular.copy(item);
-    		_ref.push(toJson);
+			var user = angular.copy(item);
+				_ref.child(user.uid).set(user, function(error,data){
+			});
+    		//_ref.push(user);
 		},
 		update: function(item,id){
 			var itemRef = new Firebase(_url + '/' + id);
