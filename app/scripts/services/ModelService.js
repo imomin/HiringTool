@@ -2,7 +2,7 @@ app.factory('ModelService', function($firebase,BaseService,SessionService) {
 	//var modelService = {}
 	var user = SessionService.getAuthenticatedUser();
 	debugger;
-	var _url = "https://hranalytics.firebaseio.com/users/"+ user +"/models";
+	var _url = "https://hrdecisiontree.firebaseio.com/users/"+ user +"/models";
 	var _ref = new Firebase(_url);	
 	//angular.extend(modelService,BaseService);
 	//modelService.init(_url,_ref);

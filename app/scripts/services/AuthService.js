@@ -1,5 +1,5 @@
 app.factory('AuthService', function($rootScope, $location, $q, UserService, SessionService) {
-    var authRef = new Firebase('https://hranalytics.firebaseio.com');
+    var authRef = new Firebase('https://hrdecisiontree.firebaseio.com');
     this.auth = new FirebaseSimpleLogin(authRef, function(error, user) {        
         if (error) {
             $rootScope.$emit("loginError", error);
@@ -62,6 +62,6 @@ app.factory('AuthService', function($rootScope, $location, $q, UserService, Sess
     this.logout = function(){
         this.auth.logout();
     }
-    
+
     return this;
 });

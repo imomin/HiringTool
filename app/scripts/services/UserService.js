@@ -1,6 +1,6 @@
 app.factory('UserService', function($firebase,BaseService) {
 	// var userService = {};
-	var _url = "https://hranalytics.firebaseio.com/users";
+	var _url = "https://hrdecisiontree.firebaseio.com/users";
 	var _ref = new Firebase(_url);;
 	// angular.extend(userService,BaseService);
 	// userService.init(_url,_ref);
