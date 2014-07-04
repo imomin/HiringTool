@@ -71,11 +71,11 @@
     </div>
     <hr>
       
-    <div google-chart="BarChart" load-data="getTotalScoreChart()" ng-model="model.candidates" title="Talent Score" width="100%" height="320"></div>
+    <div google-chart="BarChart" load-data="getTotalScoreChart()" ng-model="model.candidates" title="Talent Score" width="100%" height="320" show-legend="false"></div>
 
-    <div google-chart="BarChart" load-data="getSkillsSummartChart()" ng-model="model.candidates" title="Candidate Skills Summery" width="100%" height="500"></div>    
+    <div google-chart="BarChart" load-data="getSkillsSummartChart()" ng-model="model.candidates" title="Candidate Skills Summery" width="100%" height="500" show-legend="true"></div>    
     
-    <div google-chart="ComboChart" load-data="getSalaryChart()" ng-model="model.candidates" title="Talent score vs Compensiation" width="100%" height="500"></div>
+    <div google-chart="ComboChart" load-data="getSalaryChart()" ng-model="model.candidates" title="Talent score vs Compensiation" width="100%" height="500" show-legend="true"></div>
 
     <div>
       <h3>Candidate ranking by criteria</h3>

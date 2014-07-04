@@ -11,6 +11,8 @@ app.directive("googleChart",function(){
 	      	 	var data = $scope.loadData();
 			      	var dt = data.dataTable;
 		          	var options = {};
+		          	if(!angular.isDefined($attr.showLegend) || $attr.showLegend != "true")
+		          		options.legend = {position: 'none'};
 		          	if($attr.title)
 						options.title = $attr.title;
 					if($attr.width)
